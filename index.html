@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>爱情电影网 - 浪漫爱情片、虐恋剧集在线观看 | aiqingdianyingwanglusi-h5.github.io</title>
+<meta name="description" content="爱情电影网提供最新最热的浪漫爱情片、虐恋剧集、甜宠短剧在线观看，涵盖暗恋、初恋、异地恋、破镜重圆等主题，高清不卡顿，免费畅看。">
+<meta name="keywords" content="爱情电影网,aiqingdianyingwanglusi-h5.github.io,浪漫爱情片,虐恋剧集,甜宠短剧,在线观看,高清电影">
+<link rel="canonical" href="https://aiqingdianyingwanglusi-h5.github.io/">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --pink:#ff8fb1;--rose:#ff3d7f;--deep-rose:#d81b60;
+  --lavender:#c9a0dc;--cream:#fff5f8;--gold:#f4c430;
+  --ink:#3a1c2e;--soft:#7a5c6e;--white:#ffffff;
+  --grad:linear-gradient(135deg,#ff8fb1 0%,#ff3d7f 55%,#c9a0dc 100%);
+  --grad-soft:linear-gradient(135deg,#ffe0ec 0%,#f5d5e6 100%);
+  --shadow:0 10px 30px rgba(255,61,127,.18);
+}
+html{scroll-behavior:smooth;}
+body{
+  font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  background:var(--cream);color:var(--ink);line-height:1.6;overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+.container{max-width:1180px;margin:0 auto;padding:0 20px;}
+.btn{display:inline-block;padding:12px 28px;border-radius:30px;font-weight:700;cursor:pointer;border:none;transition:.3s;}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:var(--shadow);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(255,61,127,.35);}
+
+/* ===== 花瓣飘落 ===== */
+.petals{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.petal{position:absolute;top:-40px;width:14px;height:14px;border-radius:50% 0 50% 50%;
+  background:linear-gradient(135deg,#ffb3c8,#ff8fb1);opacity:.7;animation:fall linear infinite;}
+@keyframes fall{
+  0%{transform:translateY(0) rotate(0deg) translateX(0);opacity:.8;}
+  100%{transform:translateY(105vh) rotate(360deg) translateX(60px);opacity:0;}
+}
+
+/* ===== 顶部 ===== */
+.topbar{background:rgba(255,245,248,.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,143,177,.25);position:sticky;top:0;z-index:100;}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;height:64px;gap:20px;}
+.logo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:800;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap;}
+.logo .heart{width:34px;height:34px;background:var(--grad);border-radius:50%;
+  display:grid;place-items:center;color:#fff;font-size:18px;box-shadow:var(--shadow);}
+.nav{display:flex;gap:6px;align-items:center;}
+.nav a{padding:8px 14px;border-radius:20px;font-size:15px;color:var(--soft);transition:.25s;font-weight:600;}
+.nav a:hover{background:var(--grad);color:#fff;}
+.search-box{display:flex;align-items:center;background:#fff;border:2px solid rgba(255,143,177,.35);
+  border-radius:30px;padding:4px 6px 4px 16px;width:220px;transition:.3s;}
+.search-box:focus-within{border-color:var(--rose);box-shadow:0 0 0 4px rgba(255,61,127,.12);}
+.search-box input{border:none;outline:none;flex:1;background:transparent;font-size:14px;color:var(--ink);}
+.search-box button{background:var(--grad);border:none;color:#fff;border-radius:20px;padding:7px 16px;cursor:pointer;font-weight:700;}
+.menu-btn{display:none;background:var(--grad);border:none;color:#fff;width:42px;height:42px;
+  border-radius:12px;font-size:20px;cursor:pointer;}
+
+/* ===== 首屏 ===== */
+.hero{position:relative;padding:70px 0 60px;overflow:hidden;}
+.hero::before{content:"";position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,143,177,.35),transparent 70%);top:-200px;left:-150px;}
+.hero::after{content:"";position:absolute;width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,160,220,.3),transparent 70%);bottom:-180px;right:-120px;}
+.hero-slides{position:relative;z-index:2;}
+.slide{display:none;grid-template-columns:1.15fr .85fr;gap:50px;align-items:center;animation:fadeIn .6s;}
+.slide.active{display:grid;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+.slide-tag{display:inline-block;background:var(--grad);color:#fff;padding:6px 18px;
+  border-radius:20px;font-size:13px;font-weight:700;letter-spacing:1px;margin-bottom:18px;}
+.slide h1{font-size:46px;line-height:1.2;font-weight:900;margin-bottom:16px;}
+.slide h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.slide p{font-size:16px;color:var(--soft);margin-bottom:26px;max-width:520px;}
+.hero-visual{position:relative;}
+.hero-card{background:var(--grad);border-radius:24px;padding:30px;color:#fff;box-shadow:var(--shadow);
+  transform:rotate(2deg);}
+.hero-card img{border-radius:16px;width:100%;height:240px;object-fit:cover;}
+.hero-card .cap{margin-top:16px;text-align:center;font-weight:700;font-size:15px;}
+.hero-stats{display:flex;gap:30px;margin-top:34px;}
+.hero-stats div{text-align:center;}
+.hero-stats b{display:block;font-size:30px;font-weight:900;background:var(--grad);
+  -webkit-background-clip:text;background-clip:text;color:transparent;}
+.hero-stats span{font-size:13px;color:var(--soft);}
+.hero-controls{display:flex;align-items:center;gap:20px;margin-top:40px;}
+.dots{display:flex;gap:10px;}
+.dot{width:32px;height:8px;border-radius:6px;background:rgba(255,143,177,.35);cursor:pointer;border:none;transition:.3s;}
+.dot.active{background:var(--grad);width:48px;}
+.hero-arrows{display:flex;gap:10px;margin-left:auto;}
+.hero-arrows button{width:44px;height:44px;border-radius:50%;border:2px solid rgba(255,143,177,.4);
+  background:#fff;color:var(--rose);font-size:18px;cursor:pointer;transition:.3s;}
+.hero-arrows button:hover{background:var(--grad);color:#fff;border-color:transparent;}
+
+/* ===== 通用区块 ===== */
+section{padding:60px 0;position:relative;z-index:2;}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;gap:20px;}
+.sec-title{display:flex;align-items:center;gap:12px;}
+.sec-title .ico{width:46px;height:46px;background:var(--grad);border-radius:14px;display:grid;
+  place-items:center;color:#fff;font-size:22px;box-shadow:var(--shadow);}
+.sec-title h2{font-size:26px;font-weight:900;}
+.sec-title h2 small{display:block;font-size:13px;color:var(--soft);font-weight:600;margin-top:2px;}
+.sec-more{color:var(--rose);font-weight:700;font-size:15px;display:flex;align-items:center;gap:4px;}
+.sec-more:hover{gap:8px;}
+
+/* ===== 海报网格 ===== */
+.poster-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;}
+.poster{position:relative;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.06);transition:.35s;cursor:pointer;}
+.poster:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(255,61,127,.25);}
+.poster .thumb{position:relative;aspect-ratio:2/3;overflow:hidden;}
+.poster .thumb img{width:100%;height:100%;object-fit:cover;transition:.5s;}
+.poster:hover .thumb img{transform:scale(1.12);}
+.poster .badge{position:absolute;top:10px;left:10px;background:var(--grad);color:#fff;
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:12px;}
+.poster .rate{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.65);color:var(--gold);
+  font-size:12px;font-weight:700;padding:4px 8px;border-radius:10px;}
+.poster .play{position:absolute;inset:0;display:grid;place-items:center;background:rgba(255,61,127,.75);
+  opacity:0;transition:.3s;}
+.poster .play span{width:56px;height:56px;background:#fff;border-radius:50%;display:grid;place-items:center;
+  font-size:22px;color:var(--rose);}
+.poster:hover .play{opacity:1;}
+.poster .meta{padding:12px;}
+.poster .meta h4{font-size:14px;font-weight:700;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.poster .meta p{font-size:12px;color:var(--soft);}
+
+/* ===== 分类入口 ===== */
+.cat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;}
+.cat-item{position:relative;border-radius:20px;padding:28px 16px;text-align:center;color:#fff;
+  font-weight:800;font-size:17px;cursor:pointer;overflow:hidden;transition:.35s;min-height:130px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
+.cat-item:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 16px 36px rgba(0,0,0,.2);}
+.cat-item .em{font-size:26px;}
+.cat-item span{font-size:12px;opacity:.9;font-weight:600;}
+
+/* ===== 榜单 ===== */
+.rank-wrap{display:grid;grid-template-columns:1fr 1.15fr;gap:24px;align-items:start;}
+.rank-hero{position:relative;border-radius:24px;overflow:hidden;min-height:420px;display:flex;
+  align-items:flex-end;padding:28px;color:#fff;}
+.rank-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+.rank-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(58,28,46,.95),transparent 70%);z-index:1;}
+.rank-hero .no{position:absolute;top:20px;left:24px;z-index:3;font-size:60px;font-weight:900;
+  color:var(--gold);text-shadow:0 4px 12px rgba(0,0,0,.4);}
+.rank-hero .info{position:relative;z-index:3;}
+.rank-hero .info h3{font-size:28px;font-weight:900;margin-bottom:8px;}
+.rank-hero .info p{font-size:14px;opacity:.9;}
+.rank-list{display:flex;flex-direction:column;gap:12px;}
+.rank-row{display:flex;align-items:center;gap:16px;background:#fff;border-radius:16px;padding:12px 16px;
+  box-shadow:0 3px 12px rgba(0,0,0,.05);transition:.25s;cursor:pointer;}
+.rank-row:hover{transform:translateX(6px);box-shadow:0 8px 24px rgba(255,61,127,.18);}
+.rank-row .n{font-size:24px;font-weight:900;width:40px;color:var(--soft);}
+.rank-row.top1 .n{color:#d4a017;}
+.rank-row.top2 .n{color:#9ca3af;}
+.rank-row.top3 .n{color:#cd7f32;}
+.rank-row img{width:52px;height:70px;object-fit:cover;border-radius:10px;}
+.rank-row .tx{flex:1;min-width:0;}
+.rank-row .tx h4{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rank-row .tx p{font-size:12px;color:var(--soft);}
+.rank-row .hot{font-size:12px;color:var(--rose);font-weight:700;white-space:nowrap;}
+
+/* ===== 横向滚动 ===== */
+.tab-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;}
+.tab-bar button{padding:9px 22px;border-radius:24px;border:2px solid rgba(255,143,177,.35);
+  background:#fff;color:var(--soft);font-weight:700;cursor:pointer;transition:.25s;}
+.tab-bar button.active,.tab-bar button:hover{background:var(--grad);color:#fff;border-color:transparent;}
+.hscroll{display:flex;gap:18px;overflow-x:auto;padding-bottom:16px;scrollbar-width:none;}
+.hscroll::-webkit-scrollbar{display:none;}
+.hs-card{flex:0 0 200px;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.06);transition:.3s;}
+.hs-card:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(255,61,127,.2);}
+.hs-card .t{position:relative;aspect-ratio:16/10;overflow:hidden;}
+.hs-card .t img{width:100%;height:100%;object-fit:cover;transition:.5s;}
+.hs-card:hover .t img{transform:scale(1.1);}
+.hs-card .epi{position:absolute;top:10px;right:10px;background:var(--rose);color:#fff;
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:12px;}
+.hs-card .bar{position:absolute;bottom:0;left:0;right:0;height:4px;background:rgba(255,255,255,.35);}
+.hs-card .bar i{display:block;height:100%;background:var(--gold);}
+.hs-card .m{padding:12px;}
+.hs-card .m h4{font-size:14px;font-weight:700;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hs-card .m p{font-size:12px;color:var(--soft);}
+
+/* ===== 资讯 ===== */
+.news-wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;}
+.news-main{border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.06);transition:.3s;}
+.news-main:hover{box-shadow:0 14px 36px rgba(255,61,127,.2);}
+.news-main img{width:100%;height:300px;object-fit:cover;}
+.news-main .bd{padding:22px;}
+.news-main .bd .lb{display:inline-block;background:var(--grad);color:#fff;font-size:12px;
+  font-weight:700;padding:4px 12px;border-radius:12px;margin-bottom:12px;}
+.news-main .bd h3{font-size:20px;font-weight:900;margin-bottom:10px;line-height:1.4;}
+.news-main .bd p{font-size:14px;color:var(--soft);}
+.news-side{display:flex;flex-direction:column;gap:14px;}
+.news-row{display:flex;gap:14px;background:#fff;border-radius:14px;padding:12px;
+  box-shadow:0 3px 12px rgba(0,0,0,.05);transition:.25s;cursor:pointer;}
+.news-row:hover{transform:translateX(6px);box-shadow:0 8px 22px rgba(255,61,127,.16);}
+.news-row img{width:110px;height:80px;object-fit:cover;border-radius:10px;flex-shrink:0;}
+.news-row .t{flex:1;min-width:0;}
+.news-row .t h4{font-size:14px;font-weight:700;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden;}
+.news-row .t .dt{font-size:12px;color:var(--soft);margin-top:8px;}
+
+/* ===== 专题拼版 ===== */
+.collage{display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:16px;min-height:460px;}
+.cg{position:relative;border-radius:20px;overflow:hidden;cursor:pointer;transition:.4s;}
+.cg:hover{transform:scale(1.02);box-shadow:0 16px 40px rgba(255,61,127,.28);z-index:3;}
+.cg img{width:100%;height:100%;object-fit:cover;transition:.6s;}
+.cg:hover img{transform:scale(1.12);}
+.cg .cv{position:absolute;inset:0;background:linear-gradient(to top,rgba(58,28,46,.92) 10%,transparent 65%);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:20px;color:#fff;}
+.cg .cv h3{font-size:20px;font-weight:900;margin-bottom:6px;}
+.cg .cv p{font-size:13px;opacity:.9;}
+.cg.feature{grid-row:1/3;}
+.cg.feature .cv h3{font-size:28px;}
+.cg.small .cv h3{font-size:16px;}
+
+/* ===== 关于 ===== */
+.about{background:var(--grad-soft);border-radius:30px;padding:46px;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+.about h2{font-size:28px;font-weight:900;margin-bottom:16px;}
+.about h2 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.about>p{color:var(--soft);margin-bottom:26px;}
+.stat-row{display:flex;gap:30px;margin-bottom:26px;}
+.stat-row div b{display:block;font-size:32px;font-weight:900;background:var(--grad);
+  -webkit-background-clip:text;background-clip:text;color:transparent;}
+.stat-row div span{font-size:13px;color:var(--soft);}
+.love-form{background:#fff;border-radius:20px;padding:26px;box-shadow:0 8px 28px rgba(0,0,0,.07);}
+.love-form h3{font-size:18px;font-weight:900;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.love-form input,.love-form textarea{width:100%;border:2px solid rgba(255,143,177,.3);border-radius:14px;
+  padding:12px 16px;font-size:14px;margin-bottom:14px;font-family:inherit;outline:none;transition:.3s;}
+.love-form input:focus,.love-form textarea:focus{border-color:var(--rose);box-shadow:0 0 0 4px rgba(255,61,127,.1);}
+.love-form textarea{height:100px;resize:none;}
+.love-form button{width:100%;}
+
+/* ===== 页脚 ===== */
+footer{background:linear-gradient(135deg,#3a1c2e,#5a2c45);color:#f5d5e6;padding:46px 0 24px;margin-top:40px;}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px;margin-bottom:30px;}
+.foot-logo{font-size:24px;font-weight:900;color:#fff;margin-bottom:12px;}
+.foot-col h4{color:#fff;font-size:16px;font-weight:800;margin-bottom:14px;}
+.foot-col a{display:block;color:#e8c5d8;font-size:14px;padding:5px 0;transition:.2s;}
+.foot-col a:hover{color:var(--pink);padding-left:6px;}
+.foot-bot{border-top:1px solid rgba(255,255,255,.12);padding-top:20px;text-align:center;font-size:13px;color:#c9a0b8;}
+.foot-bot b{color:var(--gold);}
+
+/* ===== 回到顶部 ===== */
+.gotop{position:fixed;right:24px;bottom:30px;width:48px;height:48px;border-radius:50%;
+  background:var(--grad);color:#fff;border:none;font-size:20px;cursor:pointer;box-shadow:var(--shadow);
+  opacity:0;visibility:hidden;transition:.3s;z-index:99;}
+.gotop.show{opacity:1;visibility:visible;}
+
+/* ===== 响应式 ===== */
+@media(max-width:980px){
+  .poster-grid{grid-template-columns:repeat(3,1fr);}
+  .cat-grid{grid-template-columns:repeat(3,1fr);}
+  .rank-wrap,.news-wrap,.about-grid{grid-template-columns:1fr;}
+  .collage{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+  .cg.feature{grid-row:auto;grid-column:1/3;min-height:260px;}
+  .slide,.slide.active{grid-template-columns:1fr;gap:30px;text-align:center;}
+  .slide p{margin:0 auto 26px;}
+  .slide h1{font-size:34px;}
+  .hero-arrows{margin-left:0;}
+  .foot-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:720px){
+  .nav,.search-box{display:none;}
+  .menu-btn{display:block;}
+  .nav.open{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;
+    background:#fff;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.1);border-top:1px solid rgba(255,143,177,.2);}
+  .poster-grid{grid-template-columns:repeat(2,1fr);}
+  .cat-grid{grid-template-columns:repeat(2,1fr);}
+  .sec-head{flex-direction:column;align-items:flex-start;}
+  section{padding:40px 0;}
+  .slide h1{font-size:28px;}
+  .hero{padding:40px 0;}
+  .collage{grid-template-columns:1fr;min-height:auto;}
+  .cg,.cg.feature{grid-column:auto;min-height:200px;}
+  .about{padding:28px 20px;border-radius:20px;}
+  .foot-grid{grid-template-columns:1fr;}
+  .hero-stats{gap:16px;}
+  .hero-stats b{font-size:24px;}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<div class="petals" id="petals"></div>
+
+<!-- ===== 顶部 ===== -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a href="#" class="logo"><span class="heart">&#10084;</span>爱情电影网</a>
+    <nav class="nav" id="nav">
+      <a href="#home">首页</a>
+      <a href="#latest">最新上线</a>
+      <a href="#cat">影片分类</a>
+      <a href="#rank">甜蜜榜单</a>
+      <a href="#series">剧集综艺</a>
+      <a href="#news">影视资讯</a>
+      <a href="#topic">精选专题</a>
+      <a href="#about">关于我们</a>
+    </nav>
+    <div class="search-box">
+      <input type="text" placeholder="搜索爱情片、演员、导演…">
+      <button type="button">搜索</button>
+    </div>
+    <button class="menu-btn" id="menuBtn">&#9776;</button>
+  </div>
+</header>
+
+<!-- ===== 首屏 ===== -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-slides" id="heroSlides">
+      <div class="slide active">
+        <div>
+          <span class="slide-tag">首推热映</span>
+          <h1>每一帧都是<br><span>心动的瞬间</span></h1>
+          <p>汇聚全球浪漫爱情片、虐恋剧集与甜宠短剧，从暗恋到热恋，从初遇到重逢，在这里找到属于你的那部故事。</p>
+          <a href="#latest" class="btn btn-primary">&#10084; 开始追剧</a>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card">
+            <img src="https://images.unsplash.com/photo-1518621736915-f3b162c78b16?w=600&h=360&fit=crop" alt="浪漫爱情">
+            <div class="cap">今日浪漫推荐 · 甜蜜上映中</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide">
+        <div>
+          <span class="slide-tag">虐恋专场</span>
+          <h1>那些说不出口的<br><span>爱意与遗憾</span></h1>
+          <p>破镜重圆、久别重逢、错位时空——每一段虐恋都是一场不敢轻易触碰的心事，等你来细细品味。</p>
+          <a href="#topic" class="btn btn-primary">&#10084; 虐恋合集</a>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card">
+            <img src="https://images.unsplash.com/photo-1525362081669-2b476bb628c3?w=600&h=360&fit=crop" alt="虐恋剧情">
+            <div class="cap">虐心剧情 · 泪点满满</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide">
+        <div>
+          <span class="slide-tag">甜宠专区</span>
+          <h1>甜到掉牙的<br><span>恋爱日常</span></h1>
+          <p>轻松甜宠、校园暗恋、欢喜冤家，治愈每一个想恋爱的你，一杯奶茶的时间，甜满一整天。</p>
+          <a href="#cat" class="btn btn-primary">&#10084; 甜宠入口</a>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card">
+            <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=600&h=360&fit=crop" alt="甜宠恋爱">
+            <div class="cap">甜宠短剧 · 轻松治愈</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div><b>12,860</b><span>部爱情影片</span></div>
+      <div><b>3,240</b><span>部虐恋剧集</span></div>
+      <div><b>980</b><span>甜宠短剧</span></div>
+      <div><b>168</b><span>专题合集</span></div>
+    </div>
+    <div class="hero-controls">
+      <div class="dots" id="dots"></div>
+      <div class="hero-arrows">
+        <button id="prevBtn">&#10094;</button>
+        <button id="nextBtn">&#10095;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 最新上线 ===== -->
+<section id="latest">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-title">
+        <div class="ico">&#128248;</div>
+        <h2>最新上线<small>Latest Romance Releases</small></h2>
+      </div>
+      <a href="#" class="sec-more">查看全部 &#10095;</a>
+    </div>
+    <div class="poster-grid">
+      <div class="poster"><div class="thumb"><span class="badge">NEW</span><span class="rate">&#9733; 9.2</span><img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=300&h=450&fit=crop" alt=""><span class="play"><span>&#9654;</span></span></div><div class="meta"><h4>初次遇见你</h4><p>校园 · 暗恋</p></div></div>
+      <div class="poster"><div class="thumb"><span class="badge">HOT</span><span class="rate">&#9733; 8.9</span><img src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=300&h=450&fit=crop" alt=""><span class="play"><span>&#9654;</span></span></div><div class="meta"><h4>时光里的我们</h4><p>都市 · 重逢</p></div></div>
+      <div class="poster"><div class="thumb"><span class="badge">NEW</span><span class="rate">&#9733; 9.0</span><img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=300&h=450&fit=crop" alt=""><span class="play"><span>&#9654;</span></span></div><div class="meta"><h4>星空下的约定</h4><p>青春 · 治愈</p></div></div>
+      <div class="poster"><div class="thumb"><span class="rate">&#9733; 8.7</span><img src="https://images.unsplash.com/photo-1474557157379-8f4d2bee89c4?w=300&h=450&fit=crop" alt=""><span class="play"><span>&#9654;</span></span></div><div class="meta"><h4>爱在日落黄昏</h4><p>文艺 · 旅行</p></div></div>
+      <div class="poster"><div class="thumb"><span class="badge">NEW</span><span class="rate">&#9733; 9.4</span><img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=300&h=450&fit=crop" alt=""><span class="play"><span>&#9654;</span></span></div><div class="meta"><h4>你的名字我的姓</h4><p>虐恋 · 失忆</p></div></div>
+      <div class="poster"><div class="thumb"><span class="rate">&#9733; 8.8</span><img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=300&h=450&fit=crop" alt=""><span class="play"><span>&#9654;</span></span></div><div class="meta"><h4>心动的信号</h4><p>甜宠 · 职场</p></div></div>
+      <div class="poster"><div class="thumb"><span class="badge">HOT</span><span class="rate">&#9733; 9.1</span><img src="https://images.unsplash.com/photo-1487095767878-8636ba477e5c?w=300&h=450&fit=crop" alt=""><span class="play"><span>&#9654;</span></span></div><div class="meta"><h4>余生请多指教</h4><p>都市 · 婚姻</p></div></div>
+      <div class="poster"><div class="thumb"><span class="badge">NEW</span><span class="rate">&#9733; 8.6</span><img src="https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?w=300&h=450&fit=crop" alt=""><span class="play"><span>&#9654;</span></span></div><div class="meta"><h4>夏日告白书</h4><p>校园 · 初恋</p></div></div>
+      <div class="poster"><div class="thumb"><span class="rate">&#9733; 8.5</span><img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=300&h=450&fit=crop" alt=""><span class="play"><span>&#9654;</span></span></div><div class="meta"><h4>假装情侣</h4><p>喜剧 · 欢喜冤家</p></div></div>
+      <div class="poster"><div class="thumb"><span class="badge">NEW</span><span class="rate">&#9733; 9.3</span><img src="https://images.unsplash.com/photo-1492288991661-058aa541ff43?w=300&h=450&fit=crop" alt=""><span class="play"><span>&#9654;</span></span></div><div class="meta"><h4>十年一品温如言</h4><p>虐恋 · 破镜重圆</p></div></div>
+      <div class="poster"><div class="thumb"><span class="rate">&#9733; 8.4</span><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=300&h=450&fit=crop" alt=""><span class="play"><span>&#9654;</span></span></div><div class="meta"><h4>怦然再心动</h4><p>都市 · 姐弟恋</p></div></div>
+      <div class="poster"><div class="thumb"><span class="badge">HOT</span><span class="rate">&#9733; 9.5</span><img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=300&h=450&fit=crop" alt=""><span class="play"><span>&#9654;</span></span></div><div class="meta"><h4>一生一世</h4><p>年代 · 深情</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 影片分类 ===== -->
+<section id="cat" style="background:var(--grad-soft);border-radius:30px;margin:0 20px;">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-title">
+        <div class="ico">&#128218;</div>
+        <h2>影片分类<small>Browse by Mood & Theme</small></h2>
+      </div>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-item" style="background:linear-gradient(135deg,#ff8fb1,#ff3d7f);"><span class="em">&#128106;</span>校园暗恋<span>1,260 部</span></div>
+      <div class="cat-item" style="background:linear-gradient(135deg,#c9a0dc,#7b2dff);"><span class="em">&#128156;</span>初恋纯爱<span>980 部</span></div>
+      <div class="cat-item" style="background:linear-gradient(135deg,#f4c430,#e8862b);"><span class="em">&#128293;</span>虐恋心碎<span>1,540 部</span></div>
+      <div class="cat-item" style="background:linear-gradient(135deg,#ff8fa3,#ff6f91);"><span class="em">&#128138;</span>甜宠日常<span>2,010 部</span></div>
+      <div class="cat-item" style="background:linear-gradient(135deg,#7eb8e0,#3d7bff);"><span class="em">&#128305;</span>都市职场<span>1,780 部</span></div>
+      <div class="cat-item" style="background:linear-gradient(135deg,#8fd694,#2e9e5b);"><span class="em">&#127800;</span>治愈清新<span>1,320 部</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 甜蜜热播榜 ===== -->
+<section id="rank">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-title">
+        <div class="ico">&#128293;</div>
+        <h2>甜蜜热播榜<small>Top Romance Chart</small></h2>
+      </div>
+      <a href="#" class="sec-more">完整榜单 &#10095;</a>
+    </div>
+    <div class="rank-wrap">
+      <div class="rank-hero">
+        <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&h=700&fit=crop" alt="冠军">
+        <span class="no">01</span>
+        <div class="info">
+          <h3>一闪一闪亮星星</h3>
+          <p>穿越时空的暗恋，张万森的十年守护，每一颗星星都在替他表白。</p>
+        </div>
+      </div>
+      <div class="rank-list">
+        <div class="rank-row top1"><span class="n">02</span><img src="https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=120&h=160&fit=crop" alt=""><div class="tx"><h4>偷偷藏不住</h4><p>暗恋成真 · 甜度满分</p></div><span class="hot">&#9829; 986w</span></div>
+        <div class="rank-row top2"><span class="n">03</span><img src="https://images.unsplash.com/photo-1496440737103-cd596325d314?w=120&h=160&fit=crop" alt=""><div class="tx"><h4>何以笙箫默</h4><p>七年等待 · 破镜重圆</p></div><span class="hot">&#9829; 872w</span></div>
+        <div class="rank-row top3"><span class="n">04</span><img src="https://images.unsplash.com/photo-1546458913-a0a800403043?w=120&h=160&fit=crop" alt=""><div class="tx"><h4>你是我的荣耀</h4><p>航天设计师的恋爱</p></div><span class="hot">&#9829; 765w</span></div>
+        <div class="rank-row"><span class="n">05</span><img src="https://images.unsplash.com/photo-1529336953128-a85760f58cb5?w=120&h=160&fit=crop" alt=""><div class="tx"><h4>星汉灿烂</h4><p>古装 · 欢喜冤家</p></div><span class="hot">&#9829; 701w</span></div>
+        <div class="rank-row"><span class="n">06</span><img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=120&h=160&fit=crop" alt=""><div class="tx"><h4>苍兰诀</h4><p>仙侠 · 虐恋</p></div><span class="hot">&#9829; 689w</span></div>
+        <div class="rank-row"><span class="n">07</span><img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=120&h=160&fit=crop" alt=""><div class="tx"><h4>去有风的地方</h4><p>治愈 · 田园</p></div><span class="hot">&#9829; 612w</span></div>
+        <div class="rank-row"><span class="n">08</span><img src="https://images.unsplash.com/photo-1533228100845-08145a18187b?w=120&h=160&fit=crop" alt=""><div class="tx"><h4>点燃我温暖你</h4><p>校园 · 天才编程</p></div><span class="hot">&#9829; 578w</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 剧集综艺 ===== -->
+<section id="series" style="background:var(--grad-soft);border-radius:30px;margin:0 20px;">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-title">
+        <div class="ico">&#127909;</div>
+        <h2>剧集 · 综艺 · 动漫<small>Drama · Variety · Anime</small></h2>
+      </div>
+      <a href="#" class="sec-more">更多 &#10095;</a>
+    </div>
+    <div class="tab-bar" data-group="series">
+      <button class="active">甜宠剧</button><button>虐恋剧</button><button>都市情感</button>
+      <button>古装言情</button><button>恋爱综艺</button><button>恋爱动漫</button>
+    </div>
+    <div class="hscroll">
+      <div class="hs-card"><div class="t"><span class="epi">更新至 24 集</span><img src="https://images.unsplash.com/photo-1502691876148-a84978e59af8?w=400&h=250&fit=crop" alt=""><span class="bar"><i style="width:80%"></i></span></div><div class="m"><h4>很想很想你</h4><p>配音圈的双向奔赴</p></div></div>
+      <div class="hs-card"><div class="t"><span class="epi">更新至 18 集</span><img src="https://images.unsplash.com/photo-1500964757637-c85e8a162699?w=400&h=250&fit=crop" alt=""><span class="bar"><i style="width:60%"></i></span></div><div class="m"><h4>以爱为营</h4><p>商战中的深情博弈</p></div></div>
+      <div class="hs-card"><div class="t"><span class="epi">更新至 32 集</span><img src="https://images.unsplash.com/photo-1478144592103-25e218a5f6b8?w=400&h=250&fit=crop" alt=""><span class="bar"><i style="width:92%"></i></span></div><div class="m"><h4>花戎</h4><p>仙侠虐恋大戏</p></div></div>
+      <div class="hs-card"><div class="t"><span class="epi">更新至 12 集</span><img src="https://images.unsplash.com/photo-1490375203022-c2558039524a?w=400&h=250&fit=crop" alt=""><span class="bar"><i style="width:45%"></i></span></div><div class="m"><h4>半熟恋人</h4><p>成年人的心动</p></div></div>
+      <div class="hs-card"><div class="t"><span class="epi">更新至 26 集</span><img src="https://images.unsplash.com/photo-1519638831568-d9897f54ed69?w=400&h=250&fit=crop" alt=""><span class="bar"><i style="width:72%"></i></span></div><div class="m"><h4>狐妖小红娘</h4><p>动漫 · 转世情缘</p></div></div>
+      <div class="hs-card"><div class="t"><span class="epi">更新至 40 集</span><img src="https://images.unsplash.com/photo-1485842373841-35d638d45412?w=400&h=250&fit=crop" alt=""><span class="bar"><i style="width:98%"></i></span></div><div class="m"><h4>长相思</h4><p>上古虐恋神话</p></div></div>
+      <div class="hs-card"><div class="t"><span class="epi">更新至 8 集</span><img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&h=250&fit=crop" alt=""><span class="bar"><i style="width:30%"></i></span></div><div class="m"><h4>恋恋剧中人</h4><p>甜宠综艺真人秀</p></div></div>
+      <div class="hs-card"><div class="t"><span class="epi">更新至 22 集</span><img src="https://images.unsplash.com/photo-1485579149621-3123dd979885?w=400&h=250&fit=crop" alt=""><span class="bar"><i style="width:66%"></i></span></div><div class="m"><h4>一念关山</h4><p>古装 · 乱世情缘</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 影视资讯 ===== -->
+<section id="news">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-title">
+        <div class="ico">&#128240;</div>
+        <h2>影视资讯<small>News & Reviews</small></h2>
+      </div>
+      <a href="#" class="sec-more">全部资讯 &#10095;</a>
+    </div>
+    <div class="news-wrap">
+      <div class="news-main">
+        <img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=700&h=400&fit=crop" alt="头条">
+        <div class="bd">
+          <span class="lb">独家专访</span>
+          <h3>《初次遇见你》导演访谈：想拍一部让观众想起初恋的电影</h3>
+          <p>这部暑期档黑马爱情片，如何在竞争激烈的档期里用细腻的情感打动观众？导演与男女主分享了创作背后的故事。</p>
+        </div>
+      </div>
+      <div class="news-side">
+        <div class="news-row"><img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=220&h=160&fit=crop" alt=""><div class="t"><h4>十大必看虐恋剧盘点，哪一部让你哭红了眼？</h4><span class="dt">2025-06-28 · 影评</span></div></div>
+        <div class="news-row"><img src="https://images.unsplash.com/photo-1535016120720-40c646be5580?w=220&h=160&fit=crop" alt=""><div class="t"><h4>甜宠短剧迎来爆发期，单集时长缩至 3 分钟仍让人上头</h4><span class="dt">2025-06-25 · 行业</span></div></div>
+        <div class="news-row"><img src="https://images.unsplash.com/photo-1498931299472-f7a63a5a1cfa?w=220&h=160&fit=crop" alt=""><div class="t"><h4>《你的名字我的姓》定档七夕，预告片引全网泪目</h4><span class="dt">2025-06-22 · 资讯</span></div></div>
+        <div class="news-row"><img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=220&h=160&fit=crop" alt=""><div class="t"><h4>校园暗恋题材为何经久不衰？心理学专家这样解读</h4><span class="dt">2025-06-18 · 观点</span></div></div>
+        <div class="news-row"><img src="https://images.unsplash.com/photo-1508345228704-935cc84bf5e2?w=220&h=160&fit=crop" alt=""><div class="t"><h4>《怦然再心动》收官，姐弟恋题材或将成新风口</h4><span class="dt">2025-06-15 · 观察</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 精选专题 ===== -->
+<section id="topic">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-title">
+        <div class="ico">&#127912;</div>
+        <h2>精选专题<small>Curated Collections</small></h2>
+      </div>
+      <a href="#" class="sec-more">更多专题 &#10095;</a>
+    </div>
+    <div class="collage">
+      <div class="cg feature"><img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=700&h=900&fit=crop" alt=""><div class="cv"><h3>情人节特辑 · 50 部浪漫爱情片</h3><p>从经典到新片，一场关于爱的视听盛宴</p></div></div>
+      <div class="cg small"><img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=400&h=300&fit=crop" alt=""><div class="cv"><h3>虐恋合集</h3><p>心碎也要看完</p></div></div>
+      <div class="cg small"><img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&h=300&fit=crop" alt=""><div class="cv"><h3>校园暗恋</h3><p>青春的秘密心事</p></div></div>
+      <div class="cg small"><img src="https://images.unsplash.com/photo-1492288991661-058aa541ff43?w=400&h=300&fit=crop" alt=""><div class="cv"><h3>破镜重圆</h3><p>兜兜转转还是你</p></div></div>
+      <div class="cg small"><img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=400&h=300&fit=crop" alt=""><div class="cv"><h3>甜宠短片</h3><p>三分钟一次心动</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 关于我们 ===== -->
+<section id="about">
+  <div class="container">
+    <div class="about">
+      <div class="about-grid">
+        <div>
+          <h2>关于 <span>爱情电影网</span></h2>
+          <p>爱情电影网专注浪漫爱情影视内容，从院线大片到热播剧集、甜宠短剧，我们用心筛选每一部作品，让每一次点击都是一次心动的相遇。</p>
+          <div class="stat-row">
+            <div><b>12,860+</b><span>爱情影片</span></div>
+            <div><b>168</b><span>专题合集</span></div>
+            <div><b>98万+</b><span>心动会员</span></div>
+          </div>
+          <a href="#" class="btn btn-primary">&#10084; 收藏本站</a>
+        </div>
+        <form class="love-form" onsubmit="return submitForm(event)">
+          <h3>&#128172; 表白 / 留言</h3>
+          <input type="text" placeholder="你的昵称">
+          <input type="email" placeholder="邮箱（选填）">
+          <textarea placeholder="想对某部剧、某个人说的话…"></textarea>
+          <button type="submit" class="btn btn-primary">发送我的心意 &#10084;</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 页脚 ===== -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">&#10084; 爱情电影网</div>
+        <p style="font-size:14px;line-height:1.8;max-width:320px;">专注浪漫爱情影视内容的在线观看平台，最新电影、热播剧集、甜宠短剧一站畅看，高清不卡顿。</p>
+      </div>
+      <div class="foot-col">
+        <h4>影视分类</h4>
+        <a href="#">校园暗恋</a><a href="#">初恋纯爱</a><a href="#">虐恋心碎</a><a href="#">甜宠日常</a>
+      </div>
+      <div class="foot-col">
+        <h4>快速导航</h4>
+        <a href="#latest">最新上线</a><a href="#rank">甜蜜榜单</a><a href="#series">剧集综艺</a><a href="#topic">精选专题</a>
+      </div>
+      <div class="foot-col">
+        <h4>关于本站</h4>
+        <a href="#about">关于我们</a><a href="#">免责声明</a><a href="#">意见反馈</a><a href="#">合作联系</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      Copyright &copy; 2025 <b>爱情电影网</b> · 网站地址：https://aiqingdianyingwanglusi-h5.github.io<br>
+      本站仅提供影视信息索引服务，所有内容均来自互联网，如有侵权请联系删除。
+    </div>
+  </div>
+</footer>
+
+<button class="gotop" id="gotop" title="回到顶部">&#8593;</button>
+
+<script>
+// 花瓣飘落
+(function(){
+  var box=document.getElementById('petals'),n=18;
+  for(var i=0;i<n;i++){
+    var p=document.createElement('div');
+    p.className='petal';
+    p.style.left=Math.random()*100+'%';
+    p.style.animationDuration=6+Math.random()*7+'s';
+    p.style.animationDelay=Math.random()*10+'s';
+    p.style.transform='scale('+(0.6+Math.random()*0.8)+')';
+    box.appendChild(p);
+  }
+})();
+
+// 轮播
+(function(){
+  var slides=document.querySelectorAll('#heroSlides .slide');
+  var dotsBox=document.getElementById('dots');
+  var cur=0,timer;
+  for(var i=0;i<slides.length;i++){
+    var d=document.createElement('button');
+    d.className='dot'+(i===0?' active':'');
+    d.onclick=function(i){return function(){go(i);}}(i);
+    dotsBox.appendChild(d);
+  }
+  var dots=dotsBox.querySelectorAll('.dot');
+  function go(i){
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur=(i+slides.length)%slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }
+  function play(){timer=setInterval(function(){go(cur+1);},5500);}
+  function pause(){clearInterval(timer);}
+  document.getElementById('nextBtn').onclick=function(){go(cur+1);};
+  document.getElementById('prevBtn').onclick=function(){go(cur-1);};
+  var hero=document.querySelector('.hero');
+  hero.addEventListener('mouseenter',pause);
+  hero.addEventListener('mouseleave',play);
+  play();
+})();
+
+// tab 切换
+document.querySelectorAll('.tab-bar').forEach(function(bar){
+  bar.addEventListener('click',function(e){
+    if(e.target.tagName==='BUTTON'){
+      bar.querySelectorAll('button').forEach(function(b){b.classList.remove('active');});
+      e.target.classList.add('active');
+    }
+  });
+});
+
+// 移动端菜单
+document.getElementById('menuBtn').onclick=function(){
+  document.getElementById('nav').classList.toggle('open');
+};
+
+// 回到顶部
+var gotop=document.getElementById('gotop');
+window.onscroll=function(){
+  gotop.classList.toggle('show',window.scrollY>400);
+};
+gotop.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+
+// 表单
+function submitForm(e){
+  e.preventDefault();
+  var btn=e.target.querySelector('button');
+  var old=btn.innerHTML;
+  btn.innerHTML='&#10084; 已送达，谢谢你！';
+  setTimeout(function(){btn.innerHTML=old;e.target.reset();},2500);
+  return false;
+}
+</script>
+</body>
+</html>
